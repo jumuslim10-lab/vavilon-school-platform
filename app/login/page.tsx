@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -42,122 +43,97 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-white/10 rounded-full blur-3xl animate-pulse delay-700"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
-      </div>
-
-      <div className="w-full max-w-md relative z-10 px-4">
-        <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-white/20 animate-fadeIn">
-          {/* VAVILON Logo */}
-          <div className="text-center mb-8">
-            <div className="inline-block p-4 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl mb-4 shadow-lg">
-              <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[rgb(var(--color-accent))] to-[rgb(var(--color-accent-hover))] p-4">
+      <div className="w-full max-w-md">
+        <Card className="border-0 shadow-[var(--shadow-xl)]">
+          <CardHeader className="text-center space-y-2 pb-4">
+            <div className="flex justify-center mb-4">
+              <div className="w-16 h-16 rounded-[var(--radius-lg)] bg-[rgb(var(--color-accent))] flex items-center justify-center shadow-[var(--shadow-md)]">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
             </div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+            <h1 className="text-[var(--font-size-3xl)] font-bold text-[rgb(var(--color-text-primary))] tracking-[var(--letter-spacing-tight)]">
               VAVILON
             </h1>
-            <p className="text-sm text-gray-500">
-              образование в единой цифровой среде
+            <p className="text-[var(--font-size-sm)] text-[rgb(var(--color-text-secondary))]">
+              Образование в единой цифровой среде
             </p>
-          </div>
+          </CardHeader>
 
-          {/* Login Form */}
-          <form onSubmit={handleLogin} className="space-y-5">
-            <div>
-              <label htmlFor="email" className="block text-sm font-semibold mb-2 text-gray-700">
-                Email
-              </label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="user@example.com"
-                className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
-                required
-              />
-            </div>
-
-            <div>
-              <label htmlFor="password" className="block text-sm font-semibold mb-2 text-gray-700">
-                Пароль
-              </label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
-                required
-              />
-            </div>
-
-            {error && (
-              <div className="text-sm text-red-600 bg-red-50 border border-red-200 p-3 rounded-xl flex items-center gap-2">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                </svg>
-                {error}
+          <CardContent>
+            <form onSubmit={handleLogin} className="space-y-4">
+              <div className="space-y-2">
+                <label htmlFor="email" className="block text-[var(--font-size-sm)] font-medium text-[rgb(var(--color-text-primary))]">
+                  Email
+                </label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="admin@vavilon.kg"
+                  className="h-12"
+                  required
+                />
               </div>
-            )}
 
-            <Button
-              type="submit"
-              className="w-full h-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-              disabled={loading}
-            >
-              {loading ? (
-                <div className="flex items-center gap-2">
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  Вход...
+              <div className="space-y-2">
+                <label htmlFor="password" className="block text-[var(--font-size-sm)] font-medium text-[rgb(var(--color-text-primary))]">
+                  Пароль
+                </label>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="h-12"
+                  required
+                />
+              </div>
+
+              {error && (
+                <div className="flex items-center gap-2 text-[var(--font-size-sm)] text-[rgb(var(--color-error))] bg-[rgb(var(--color-error-light))] border border-[rgb(var(--color-error))]/20 p-3 rounded-[var(--radius-md)]">
+                  <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  </svg>
+                  {error}
                 </div>
-              ) : (
-                'Войти'
               )}
-            </Button>
-          </form>
 
-          {/* Demo Accounts Info */}
-          <div className="mt-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
-            <p className="text-xs font-bold text-blue-900 mb-3 flex items-center gap-2">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-              </svg>
-              Демо-аккаунты:
-            </p>
-            <div className="text-xs text-gray-700 space-y-2">
-              <p className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                admin@vavilon.kg (Администратор)
+              <Button
+                type="submit"
+                className="w-full h-12 text-[var(--font-size-base)]"
+                disabled={loading}
+              >
+                {loading ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Вход...
+                  </div>
+                ) : (
+                  'Войти'
+                )}
+              </Button>
+            </form>
+
+            <div className="mt-6 p-4 bg-[rgb(var(--color-surface-hover))] rounded-[var(--radius-md)] border border-[rgb(var(--color-border-subtle))]">
+              <p className="text-[var(--font-size-xs)] font-semibold text-[rgb(var(--color-text-primary))] mb-3">
+                Демо-аккаунты:
               </p>
-              <p className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                teacher1@demo.kg (Учитель)
-              </p>
-              <p className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
-                student1@demo.kg (Ученик)
-              </p>
-              <p className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-amber-500 rounded-full"></span>
-                parent1@demo.kg (Родитель)
-              </p>
-              <div className="mt-3 pt-3 border-t border-blue-200">
-                <p className="text-xs font-semibold text-blue-900">Пароль для всех: Demo123!</p>
+              <div className="space-y-2 text-[var(--font-size-xs)] text-[rgb(var(--color-text-secondary))]">
+                <p>📧 admin@vavilon.kg</p>
+                <p className="text-[var(--font-size-xs)] text-[rgb(var(--color-text-tertiary))] mt-2 pt-2 border-t border-[rgb(var(--color-border-subtle))]">
+                  Пароль для всех: Demo123!
+                </p>
               </div>
             </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
-        {/* Footer */}
-        <p className="text-center text-sm text-white/90 mt-6 font-medium">
+        <p className="text-center text-[var(--font-size-sm)] text-white/90 mt-6">
           © 2026 VAVILON. Все права защищены.
         </p>
       </div>
