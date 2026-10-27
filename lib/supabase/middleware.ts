@@ -28,19 +28,29 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  try {
+    const {
+      data: { user },
+      error
+    } = await supabase.auth.getUser()
 
-  if (
-    !user &&
-    !request.nextUrl.pathname.startsWith('/login') &&
-    !request.nextUrl.pathname.startsWith('/auth')
-  ) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/login'
-    return NextResponse.redirect(url)
+    // Только редиректим на login если точно нет пользователя
+    // Не редиректим при временных ошибках сети
+    if (
+      !user &&
+      !error &&
+      !request.nextUrl.pathname.startsWith('/login') &&
+      !request.nextUrl.pathname.startsWith('/auth')
+    ) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/login'
+      return NextResponse.redirect(url)
+    }
+
+    return supabaseResponse
+  } catch (error) {
+    // При ошибках не редиректим, просто логируем
+    console.error('Middleware error:', error)
+    return supabaseResponse
   }
-
-  return supabaseResponse
 }
