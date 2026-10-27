@@ -17,6 +17,8 @@ import {
   Menu,
   X,
   BarChart3,
+  Target,
+  Palette,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { createClient } from '@/lib/supabase/client'
@@ -84,13 +86,13 @@ export default function DashboardLayout({
       {/* Sidebar */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-40 w-64 bg-white border-r border-border transform transition-transform duration-200 ease-in-out lg:translate-x-0',
+          'fixed inset-y-0 left-0 z-40 w-64 bg-white border-r border-gray-200 transform transition-transform duration-200 ease-in-out lg:translate-x-0 shadow-xl',
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
         {/* Logo */}
-        <div className="flex items-center justify-center h-16 border-b border-border">
-          <h1 className="text-2xl font-bold text-brand-blue">VAVILON</h1>
+        <div className="flex items-center justify-center h-16 border-b border-gray-200 bg-gradient-to-r from-blue-600 to-indigo-600">
+          <h1 className="text-2xl font-bold text-white">VAVILON</h1>
         </div>
 
         {/* Navigation */}
@@ -106,10 +108,10 @@ export default function DashboardLayout({
                     href={item.href}
                     onClick={() => setSidebarOpen(false)}
                     className={cn(
-                      'flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors',
+                      'flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200',
                       isActive
-                        ? 'bg-brand-blue text-white'
-                        : 'text-gray-700 hover:bg-background-secondary'
+                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/50'
+                        : 'text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:text-blue-600'
                     )}
                   >
                     <Icon className="h-5 w-5" />
@@ -122,20 +124,20 @@ export default function DashboardLayout({
         </nav>
 
         {/* User profile and logout */}
-        <div className="border-t border-border p-4">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-full bg-brand-green flex items-center justify-center text-white font-semibold">
+        <div className="border-t border-gray-200 p-4 bg-gray-50">
+          <div className="flex items-center gap-3 mb-3 p-3 rounded-xl bg-white shadow-sm">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white font-semibold shadow-lg">
               {userName.charAt(0).toUpperCase()}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">{userName}</p>
-              <p className="text-xs text-muted-foreground capitalize">{userRole}</p>
+              <p className="text-sm font-semibold truncate">{userName}</p>
+              <p className="text-xs text-gray-500 capitalize">{userRole}</p>
             </div>
           </div>
           <Button
             variant="outline"
             size="sm"
-            className="w-full"
+            className="w-full hover:bg-red-50 hover:text-red-600 hover:border-red-600 transition-colors"
             onClick={handleLogout}
           >
             <LogOut className="h-4 w-4 mr-2" />
@@ -146,7 +148,11 @@ export default function DashboardLayout({
 
       {/* Main content */}
       <div className="lg:pl-64">
-        <main className="p-8">{children}</main>
+        <main className="p-8 min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/30">
+          <div className="animate-fadeIn">
+            {children}
+          </div>
+        </main>
       </div>
 
       {/* Overlay for mobile */}
