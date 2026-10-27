@@ -1,0 +1,88 @@
+'use client'
+
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { X, Loader2 } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
+
+interface CreateSubjectModalProps {
+  isOpen: boolean
+  onClose: () => void
+  schoolId: string
+}
+
+export default function CreateSubjectModal({ isOpen, onClose, schoolId }: CreateSubjectModalProps) {
+  const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState({
+    name: '',
+    code: '',
+    description: ''
+  })
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+
+    try {
+      const supabase = createClient()
+      const { error } = await supabase.from('subjects').insert({
+        school_id: schoolId,
+        name: formData.name,
+        code: formData.code,
+        description: formData.description || null
+      })
+
+      if (error) throw error
+      window.location.reload()
+    } catch (error) {
+      console.error('Error creating subject:', error)
+      alert('Ошибка при создании предмета')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (!isOpen) return null
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg w-full max-w-md">
+        <div className="flex items-center justify-between p-4 border-b">
+          <h2 className="text-xl font-bold">Добавить предмет</h2>
+          <button onClick={onClose}><X className="h-6 w-6" /></button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Название</label>
+            <Input required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} placeholder="Математика" />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1">Код</label>
+            <Input required value={formData.code} onChange={e => setFormData({ ...formData, code: e.target.value })} placeholder="MATH" />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1">Описание</label>
+            <textarea
+              value={formData.description}
+              onChange={e => setFormData({ ...formData, description: e.target.value })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              rows={3}
+              placeholder="Краткое описание предмета"
+            />
+          </div>
+
+          <div className="flex gap-3 pt-4">
+            <Button type="submit" disabled={loading} className="flex-1">
+              {loading ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Создание...</> : 'Создать'}
+            </Button>
+            <Button type="button" variant="outline" onClick={onClose}>Отмена</Button>
+          </div>
+        </form>
+      </div>
+    </div>
+  )
+}
