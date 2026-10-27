@@ -106,12 +106,14 @@ export default function AssignmentsClient({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">Домашние задания</h1>
-          <p className="text-gray-500 mt-1">
+        <div className="space-y-2">
+          <h1 className="text-[var(--font-size-3xl)] font-bold text-[rgb(var(--color-text-primary))] tracking-[var(--letter-spacing-tight)]">
+            Домашние задания
+          </h1>
+          <p className="text-[var(--font-size-sm)] text-[rgb(var(--color-text-secondary))]">
             {role === 'teacher' ? 'Управление заданиями' : 'Мои задания'}
           </p>
         </div>
@@ -125,60 +127,68 @@ export default function AssignmentsClient({
 
       {/* Statistics */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
+        <Card className="hover:shadow-[var(--shadow-md)] transition-shadow duration-200">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-500">
+              <div className="space-y-1">
+                <p className="text-[var(--font-size-sm)] text-[rgb(var(--color-text-secondary))]">
                   {role === 'teacher' ? 'Всего заданий' : 'Доступно заданий'}
                 </p>
-                <p className="text-2xl font-bold">{stats.total}</p>
+                <p className="text-[var(--font-size-3xl)] font-bold text-[rgb(var(--color-text-primary))]">{stats.total}</p>
               </div>
-              <BookOpen className="h-8 w-8 text-blue-500" />
+              <div className="w-12 h-12 rounded-[var(--radius-md)] bg-[rgb(var(--color-accent-light))] flex items-center justify-center">
+                <BookOpen className="h-6 w-6 text-[rgb(var(--color-accent))]" />
+              </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="hover:shadow-[var(--shadow-md)] transition-shadow duration-200">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-500">
+              <div className="space-y-1">
+                <p className="text-[var(--font-size-sm)] text-[rgb(var(--color-text-secondary))]">
                   {role === 'teacher' ? 'Опубликовано' : 'Сдано'}
                 </p>
-                <p className="text-2xl font-bold">
+                <p className="text-[var(--font-size-3xl)] font-bold text-[rgb(var(--color-text-primary))]">
                   {role === 'teacher' ? stats.published : stats.submitted}
                 </p>
               </div>
-              <CheckCircle className="h-8 w-8 text-green-500" />
+              <div className="w-12 h-12 rounded-[var(--radius-md)] bg-[rgb(var(--color-success-light))] flex items-center justify-center">
+                <CheckCircle className="h-6 w-6 text-[rgb(var(--color-success))]" />
+              </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="hover:shadow-[var(--shadow-md)] transition-shadow duration-200">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-500">
+              <div className="space-y-1">
+                <p className="text-[var(--font-size-sm)] text-[rgb(var(--color-text-secondary))]">
                   {role === 'teacher' ? 'Черновиков' : 'Ожидает сдачи'}
                 </p>
-                <p className="text-2xl font-bold">
+                <p className="text-[var(--font-size-3xl)] font-bold text-[rgb(var(--color-text-primary))]">
                   {role === 'teacher' ? stats.draft : stats.pending}
                 </p>
               </div>
-              <AlertCircle className="h-8 w-8 text-yellow-500" />
+              <div className="w-12 h-12 rounded-[var(--radius-md)] bg-[rgb(var(--color-warning-light))] flex items-center justify-center">
+                <AlertCircle className="h-6 w-6 text-[rgb(var(--color-warning))]" />
+              </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="hover:shadow-[var(--shadow-md)] transition-shadow duration-200">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-500">Просрочено</p>
-                <p className="text-2xl font-bold">{stats.overdue}</p>
+              <div className="space-y-1">
+                <p className="text-[var(--font-size-sm)] text-[rgb(var(--color-text-secondary))]">Просрочено</p>
+                <p className="text-[var(--font-size-3xl)] font-bold text-[rgb(var(--color-text-primary))]">{stats.overdue}</p>
               </div>
-              <XCircle className="h-8 w-8 text-red-500" />
+              <div className="w-12 h-12 rounded-[var(--radius-md)] bg-[rgb(var(--color-error-light))] flex items-center justify-center">
+                <XCircle className="h-6 w-6 text-[rgb(var(--color-error))]" />
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -186,12 +196,12 @@ export default function AssignmentsClient({
 
       {/* Assignments List */}
       <Card>
-        <CardHeader>
+        <CardHeader className="border-b border-[rgb(var(--color-border-subtle))]">
           <CardTitle>
             {role === 'teacher' ? 'Мои задания' : 'Список заданий'}
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <div className="space-y-4">
             {assignments.map(assignment => {
               const submission = role === 'student' ? getSubmissionStatus(assignment.id) : null
@@ -200,20 +210,20 @@ export default function AssignmentsClient({
               return (
                 <div
                   key={assignment.id}
-                  className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                  className="border border-[rgb(var(--color-border))] rounded-[var(--radius-md)] p-4 hover:shadow-[var(--shadow-md)] transition-all duration-200"
                 >
                   <div className="flex items-start justify-between">
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="font-semibold text-lg">{assignment.title}</h3>
+                        <h3 className="font-semibold text-[var(--font-size-lg)] text-[rgb(var(--color-text-primary))]">{assignment.title}</h3>
                         {getStatusBadge(assignment)}
                       </div>
 
-                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                      <p className="text-[var(--font-size-sm)] text-[rgb(var(--color-text-secondary))] mb-3 line-clamp-2">
                         {assignment.description}
                       </p>
 
-                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                      <div className="flex items-center gap-4 text-[var(--font-size-sm)] text-[rgb(var(--color-text-tertiary))]">
                         <span className="flex items-center gap-1">
                           <BookOpen className="h-4 w-4" />
                           {role === 'teacher'
@@ -233,12 +243,12 @@ export default function AssignmentsClient({
                       </div>
 
                       {role === 'student' && submission?.status === 'graded' && (
-                        <div className="mt-3 p-2 bg-green-50 rounded-md">
-                          <p className="text-sm text-green-800">
+                        <div className="mt-3 p-3 bg-[rgb(var(--color-success-light))] rounded-[var(--radius-md)] border border-[rgb(var(--color-success))]/20">
+                          <p className="text-[var(--font-size-sm)] text-[rgb(var(--color-success))]">
                             Оценка: <strong>{submission.grade}</strong> из {assignment.max_grade}
                           </p>
                           {submission.feedback && (
-                            <p className="text-xs text-green-700 mt-1">
+                            <p className="text-[var(--font-size-xs)] text-[rgb(var(--color-success))] mt-1">
                               {submission.feedback}
                             </p>
                           )}
@@ -246,7 +256,7 @@ export default function AssignmentsClient({
                       )}
                     </div>
 
-                    <div className="flex flex-col gap-2 ml-4">
+                    <div className="flex flex-col gap-2 ml-4 flex-shrink-0">
                       <Button
                         variant="outline"
                         size="sm"
@@ -273,8 +283,8 @@ export default function AssignmentsClient({
 
             {assignments.length === 0 && (
               <div className="text-center py-12">
-                <BookOpen className="h-12 w-12 text-gray-300 mx-auto mb-2" />
-                <p className="text-gray-400">
+                <BookOpen className="h-12 w-12 text-[rgb(var(--color-text-tertiary))] mx-auto mb-3 opacity-50" />
+                <p className="text-[rgb(var(--color-text-tertiary))]">
                   {role === 'teacher'
                     ? 'Вы еще не создали ни одного задания'
                     : 'Нет доступных заданий'}

@@ -71,21 +71,21 @@ export default function MessagesClient({
   )
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">Сообщения</h1>
-          <p className="text-gray-500 mt-1">Внутренняя переписка</p>
-        </div>
+    <div className="space-y-8">
+      <div className="space-y-2">
+        <h1 className="text-[var(--font-size-3xl)] font-bold text-[rgb(var(--color-text-primary))] tracking-[var(--letter-spacing-tight)]">
+          Сообщения
+        </h1>
+        <p className="text-[var(--font-size-sm)] text-[rgb(var(--color-text-secondary))]">Внутренняя переписка</p>
       </div>
 
       <div className="grid grid-cols-12 gap-6 h-[calc(100vh-250px)]">
         {/* Conversations list */}
         <Card className="col-span-4 flex flex-col">
-          <CardHeader>
-            <CardTitle className="text-lg">Диалоги</CardTitle>
-            <div className="relative mt-2">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <CardHeader className="border-b border-[rgb(var(--color-border-subtle))]">
+            <CardTitle className="text-[var(--font-size-lg)]">Диалоги</CardTitle>
+            <div className="relative mt-3">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[rgb(var(--color-text-tertiary))]" />
               <Input
                 type="text"
                 placeholder="Поиск..."
@@ -96,27 +96,27 @@ export default function MessagesClient({
             </div>
           </CardHeader>
           <CardContent className="flex-1 overflow-y-auto p-0">
-            <div className="space-y-1 p-4">
+            <div className="divide-y divide-[rgb(var(--color-border-subtle))]">
               {filteredConversations.map(conv => (
                 <button
                   key={conv.id}
                   onClick={() => handleSelectConversation(conv)}
-                  className={`w-full text-left p-3 rounded-lg transition-colors ${
+                  className={`w-full text-left p-4 transition-colors duration-200 ${
                     selectedConversation?.id === conv.id
-                      ? 'bg-blue-50 border border-blue-200'
-                      : 'hover:bg-gray-50'
+                      ? 'bg-[rgb(var(--color-accent-light))] border-l-2 border-[rgb(var(--color-accent))]'
+                      : 'hover:bg-[rgb(var(--color-surface-hover))]'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                      <User className="h-5 w-5 text-blue-600" />
+                    <div className="w-10 h-10 rounded-full bg-[rgb(var(--color-accent-light))] flex items-center justify-center flex-shrink-0">
+                      <User className="h-5 w-5 text-[rgb(var(--color-accent))]" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium truncate">{conv.participant_name}</p>
-                      <p className="text-xs text-gray-500 truncate">{conv.last_message}</p>
+                      <p className="font-medium text-[var(--font-size-sm)] text-[rgb(var(--color-text-primary))] truncate">{conv.participant_name}</p>
+                      <p className="text-[var(--font-size-xs)] text-[rgb(var(--color-text-tertiary))] truncate">{conv.last_message}</p>
                     </div>
                     {conv.unread_count > 0 && (
-                      <Badge variant="default" className="ml-2">
+                      <Badge variant="default" className="ml-2 flex-shrink-0">
                         {conv.unread_count}
                       </Badge>
                     )}
@@ -126,8 +126,8 @@ export default function MessagesClient({
 
               {filteredConversations.length === 0 && (
                 <div className="text-center py-12">
-                  <MessageSquare className="h-12 w-12 text-gray-300 mx-auto mb-2" />
-                  <p className="text-gray-400">Диалогов нет</p>
+                  <MessageSquare className="h-12 w-12 text-[rgb(var(--color-text-tertiary))] mx-auto mb-3 opacity-50" />
+                  <p className="text-[rgb(var(--color-text-tertiary))]">Диалогов нет</p>
                 </div>
               )}
             </div>
@@ -138,14 +138,14 @@ export default function MessagesClient({
         <Card className="col-span-8 flex flex-col">
           {selectedConversation ? (
             <>
-              <CardHeader className="border-b">
+              <CardHeader className="border-b border-[rgb(var(--color-border-subtle))]">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                    <User className="h-5 w-5 text-blue-600" />
+                  <div className="w-10 h-10 rounded-full bg-[rgb(var(--color-accent-light))] flex items-center justify-center">
+                    <User className="h-5 w-5 text-[rgb(var(--color-accent))]" />
                   </div>
                   <div>
-                    <CardTitle className="text-lg">{selectedConversation.participant_name}</CardTitle>
-                    <p className="text-xs text-gray-500">В сети</p>
+                    <CardTitle className="text-[var(--font-size-lg)] text-[rgb(var(--color-text-primary))]">{selectedConversation.participant_name}</CardTitle>
+                    <p className="text-[var(--font-size-xs)] text-[rgb(var(--color-text-tertiary))]">В сети</p>
                   </div>
                 </div>
               </CardHeader>
@@ -157,15 +157,15 @@ export default function MessagesClient({
                     <div key={msg.id} className={`flex ${isOwn ? 'justify-end' : 'justify-start'}`}>
                       <div className={`max-w-[70%] ${isOwn ? 'order-2' : 'order-1'}`}>
                         {!isOwn && (
-                          <p className="text-xs text-gray-500 mb-1">{msg.sender?.full_name}</p>
+                          <p className="text-[var(--font-size-xs)] text-[rgb(var(--color-text-tertiary))] mb-1">{msg.sender?.full_name}</p>
                         )}
-                        <div className={`rounded-lg p-3 ${
+                        <div className={`rounded-[var(--radius-md)] p-3 ${
                           isOwn
-                            ? 'bg-blue-600 text-white'
-                            : 'bg-gray-100 text-gray-900'
+                            ? 'bg-[rgb(var(--color-accent))] text-white'
+                            : 'bg-[rgb(var(--color-surface-hover))] text-[rgb(var(--color-text-primary))]'
                         }`}>
-                          <p className="text-sm">{msg.content}</p>
-                          <p className={`text-xs mt-1 ${isOwn ? 'text-blue-100' : 'text-gray-500'}`}>
+                          <p className="text-[var(--font-size-sm)]">{msg.content}</p>
+                          <p className={`text-[var(--font-size-xs)] mt-1 ${isOwn ? 'text-white/70' : 'text-[rgb(var(--color-text-tertiary))]'}`}>
                             {new Date(msg.created_at).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
                           </p>
                         </div>
@@ -175,7 +175,7 @@ export default function MessagesClient({
                 })}
               </CardContent>
 
-              <div className="border-t p-4">
+              <div className="border-t border-[rgb(var(--color-border-subtle))] p-4">
                 <form onSubmit={handleSendMessage} className="flex gap-2">
                   <Input
                     type="text"
@@ -194,8 +194,8 @@ export default function MessagesClient({
           ) : (
             <CardContent className="flex-1 flex items-center justify-center">
               <div className="text-center">
-                <MessageSquare className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-400">Выберите диалог для начала переписки</p>
+                <MessageSquare className="h-16 w-16 text-[rgb(var(--color-text-tertiary))] mx-auto mb-4 opacity-50" />
+                <p className="text-[rgb(var(--color-text-tertiary))]">Выберите диалог для начала переписки</p>
               </div>
             </CardContent>
           )}

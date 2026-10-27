@@ -44,10 +44,12 @@ export default async function AdminPage() {
 
   return (
     <DashboardLayout userRole={membership.role} userName={profile?.full_name || ''}>
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold">Администрирование</h1>
-          <p className="text-gray-500 mt-1">Управление школой</p>
+      <div className="space-y-8">
+        <div className="space-y-2">
+          <h1 className="text-[var(--font-size-3xl)] font-bold text-[rgb(var(--color-text-primary))] tracking-[var(--letter-spacing-tight)]">
+            Администрирование
+          </h1>
+          <p className="text-[var(--font-size-sm)] text-[rgb(var(--color-text-secondary))]">Управление школой</p>
         </div>
 
         <Tabs defaultValue="users" className="space-y-6">

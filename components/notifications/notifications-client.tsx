@@ -82,12 +82,14 @@ export default function NotificationsClient({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">Уведомления</h1>
-          <p className="text-gray-500 mt-1">
+        <div className="space-y-2">
+          <h1 className="text-[var(--font-size-3xl)] font-bold text-[rgb(var(--color-text-primary))] tracking-[var(--letter-spacing-tight)]">
+            Уведомления
+          </h1>
+          <p className="text-[var(--font-size-sm)] text-[rgb(var(--color-text-secondary))]">
             {unreadCount > 0 ? `${unreadCount} непрочитанных` : 'Все прочитано'}
           </p>
         </div>
@@ -102,8 +104,8 @@ export default function NotificationsClient({
       {/* Filters */}
       <Card>
         <CardContent className="pt-6">
-          <div className="flex items-center gap-2">
-            <Filter className="h-5 w-5 text-gray-500" />
+          <div className="flex items-center gap-3">
+            <Filter className="h-5 w-5 text-[rgb(var(--color-text-tertiary))]" />
             <div className="flex gap-2">
               <Button
                 variant={filter === 'all' ? 'default' : 'outline'}
@@ -134,12 +136,12 @@ export default function NotificationsClient({
       {/* Notifications list */}
       <Card>
         <CardContent className="p-0">
-          <div className="divide-y divide-gray-200">
+          <div className="divide-y divide-[rgb(var(--color-border-subtle))]">
             {filteredNotifications.map(notif => (
               <div
                 key={notif.id}
-                className={`p-4 hover:bg-gray-50 transition-colors ${
-                  !notif.is_read ? 'bg-blue-50' : ''
+                className={`p-4 hover:bg-[rgb(var(--color-surface-hover))] transition-colors duration-200 ${
+                  !notif.is_read ? 'bg-[rgb(var(--color-accent-light))]/30' : ''
                 }`}
               >
                 <div className="flex items-start gap-4">
@@ -149,21 +151,21 @@ export default function NotificationsClient({
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <Badge variant="default" className="text-xs">
+                      <Badge variant="outline" className="text-[var(--font-size-xs)]">
                         {getNotificationTypeName(notif.notification_type)}
                       </Badge>
                       {!notif.is_read && (
-                        <Badge variant="info" className="text-xs">
+                        <Badge variant="info" className="text-[var(--font-size-xs)]">
                           Новое
                         </Badge>
                       )}
                     </div>
 
-                    <h3 className="font-semibold text-sm mb-1">{notif.title}</h3>
-                    <p className="text-sm text-gray-600 mb-2">{notif.content}</p>
+                    <h3 className="font-semibold text-[var(--font-size-sm)] text-[rgb(var(--color-text-primary))] mb-1">{notif.title}</h3>
+                    <p className="text-[var(--font-size-sm)] text-[rgb(var(--color-text-secondary))] mb-2">{notif.content}</p>
 
                     <div className="flex items-center justify-between">
-                      <p className="text-xs text-gray-500">
+                      <p className="text-[var(--font-size-xs)] text-[rgb(var(--color-text-tertiary))]">
                         {formatDate(notif.created_at, 'long')}
                       </p>
 
@@ -183,7 +185,7 @@ export default function NotificationsClient({
                           size="sm"
                           onClick={() => handleDelete(notif.id)}
                         >
-                          <Trash2 className="h-4 w-4 text-red-500" />
+                          <Trash2 className="h-4 w-4 text-[rgb(var(--color-error))]" />
                         </Button>
                       </div>
                     </div>
@@ -194,8 +196,8 @@ export default function NotificationsClient({
 
             {filteredNotifications.length === 0 && (
               <div className="text-center py-12">
-                <Bell className="h-12 w-12 text-gray-300 mx-auto mb-2" />
-                <p className="text-gray-400">
+                <Bell className="h-12 w-12 text-[rgb(var(--color-text-tertiary))] mx-auto mb-3 opacity-50" />
+                <p className="text-[rgb(var(--color-text-tertiary))]">
                   {filter === 'unread'
                     ? 'Нет непрочитанных уведомлений'
                     : filter === 'read'

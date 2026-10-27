@@ -95,68 +95,76 @@ export default async function DiaryPage() {
 
   return (
     <DashboardLayout userRole={membership.role} userName={profile.full_name}>
-      <div className="space-y-6">
+      <div className="space-y-8">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold">Электронный дневник</h1>
-            <p className="text-gray-500 mt-1">
-              {enrollment?.classes?.name} • {academicYear?.name || '2026-2027'}
-            </p>
+          <div className="space-y-2">
+            <h1 className="text-[var(--font-size-3xl)] font-bold text-[rgb(var(--color-text-primary))] tracking-[var(--letter-spacing-tight)]">
+              Электронный дневник
+            </h1>
+            <div className="flex items-center gap-2 text-[var(--font-size-sm)] text-[rgb(var(--color-text-secondary))]">
+              <span>{enrollment?.classes?.name}</span>
+              <span className="text-[rgb(var(--color-text-tertiary))]">•</span>
+              <span>{academicYear?.name || '2026-2027'}</span>
+            </div>
           </div>
-          <div className="flex items-center gap-4">
-            <Card className="bg-blue-50 border-blue-200">
-              <CardContent className="pt-4 pb-4 px-6">
-                <div className="flex items-center gap-3">
-                  <TrendingUp className="h-8 w-8 text-blue-600" />
-                  <div>
-                    <p className="text-sm text-gray-600">Средний балл</p>
-                    <p className="text-2xl font-bold text-blue-600">
-                      {overallAverage > 0 ? overallAverage.toFixed(2) : '—'}
-                    </p>
-                  </div>
+          <Card className="bg-[rgb(var(--color-accent-light))] border-[rgb(var(--color-accent))]/20">
+            <CardContent className="pt-4 pb-4 px-6">
+              <div className="flex items-center gap-3">
+                <TrendingUp className="h-8 w-8 text-[rgb(var(--color-accent))]" />
+                <div>
+                  <p className="text-[var(--font-size-sm)] text-[rgb(var(--color-text-secondary))]">Средний балл</p>
+                  <p className="text-[var(--font-size-2xl)] font-bold text-[rgb(var(--color-accent))]">
+                    {overallAverage > 0 ? overallAverage.toFixed(2) : '—'}
+                  </p>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Statistics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card>
+          <Card className="hover:shadow-[var(--shadow-md)] transition-shadow duration-200">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-500">Всего оценок</p>
-                  <p className="text-2xl font-bold">{allGradeValues.length}</p>
+                <div className="space-y-1">
+                  <p className="text-[var(--font-size-sm)] text-[rgb(var(--color-text-secondary))]">Всего оценок</p>
+                  <p className="text-[var(--font-size-3xl)] font-bold text-[rgb(var(--color-text-primary))]">{allGradeValues.length}</p>
                 </div>
-                <BookOpen className="h-8 w-8 text-blue-500" />
+                <div className="w-12 h-12 rounded-[var(--radius-md)] bg-[rgb(var(--color-accent-light))] flex items-center justify-center">
+                  <BookOpen className="h-6 w-6 text-[rgb(var(--color-accent))]" />
+                </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="hover:shadow-[var(--shadow-md)] transition-shadow duration-200">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-500">Предметов</p>
-                  <p className="text-2xl font-bold">{subjectStats.filter(s => s.count > 0).length}</p>
+                <div className="space-y-1">
+                  <p className="text-[var(--font-size-sm)] text-[rgb(var(--color-text-secondary))]">Предметов</p>
+                  <p className="text-[var(--font-size-3xl)] font-bold text-[rgb(var(--color-text-primary))]">{subjectStats.filter(s => s.count > 0).length}</p>
                 </div>
-                <Calendar className="h-8 w-8 text-green-500" />
+                <div className="w-12 h-12 rounded-[var(--radius-md)] bg-[rgb(var(--color-success-light))] flex items-center justify-center">
+                  <Calendar className="h-6 w-6 text-[rgb(var(--color-success))]" />
+                </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="hover:shadow-[var(--shadow-md)] transition-shadow duration-200">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-500">Последняя оценка</p>
-                  <p className="text-2xl font-bold">
+                <div className="space-y-1">
+                  <p className="text-[var(--font-size-sm)] text-[rgb(var(--color-text-secondary))]">Последняя оценка</p>
+                  <p className="text-[var(--font-size-3xl)] font-bold text-[rgb(var(--color-text-primary))]">
                     {grades && grades.length > 0 ? grades[0].grade_value : '—'}
                   </p>
                 </div>
-                <TrendingUp className="h-8 w-8 text-yellow-500" />
+                <div className="w-12 h-12 rounded-[var(--radius-md)] bg-[rgb(var(--color-warning-light))] flex items-center justify-center">
+                  <TrendingUp className="h-6 w-6 text-[rgb(var(--color-warning))]" />
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -164,66 +172,66 @@ export default async function DiaryPage() {
 
         {/* Grades by Subject */}
         <Card>
-          <CardHeader>
+          <CardHeader className="border-b border-[rgb(var(--color-border-subtle))]">
             <CardTitle>Оценки по предметам</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
+          <CardContent className="p-6">
+            <div className="space-y-6">
               {subjectStats.map(stat => (
-                <div key={stat.subject.id} className="border-b border-gray-200 pb-4 last:border-0 last:pb-0">
-                  <div className="flex items-center justify-between mb-2">
+                <div key={stat.subject.id} className="border-b border-[rgb(var(--color-border-subtle))] pb-6 last:border-0 last:pb-0">
+                  <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      <h3 className="font-semibold text-lg">{stat.subject.name}</h3>
+                      <h3 className="font-semibold text-[var(--font-size-lg)] text-[rgb(var(--color-text-primary))]">{stat.subject.name}</h3>
                       {stat.average > 0 && (
                         <Badge variant={stat.average >= 4 ? 'success' : stat.average >= 3 ? 'warning' : 'error'}>
                           Средний: {stat.average.toFixed(2)}
                         </Badge>
                       )}
                     </div>
-                    <span className="text-sm text-gray-500">{stat.count} оценок</span>
+                    <span className="text-[var(--font-size-sm)] text-[rgb(var(--color-text-tertiary))]">{stat.count} оценок</span>
                   </div>
 
                   {stat.grades.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {stat.grades.slice(0, 6).map(grade => (
-                        <div key={grade.id} className="flex items-center justify-between bg-gray-50 p-3 rounded-md">
+                        <div key={grade.id} className="flex items-center justify-between bg-[rgb(var(--color-surface-hover))] p-3 rounded-[var(--radius-md)] transition-colors duration-200 hover:bg-[rgb(var(--color-border-subtle))]">
                           <div>
                             <div className="flex items-center gap-2">
-                              <span className="font-bold text-lg">
+                              <span className="font-bold text-[var(--font-size-lg)] text-[rgb(var(--color-text-primary))]">
                                 {grade.grade_value}
                               </span>
-                              <span className="text-sm text-gray-500">
+                              <span className="text-[var(--font-size-sm)] text-[rgb(var(--color-text-tertiary))]">
                                 / {grade.max_grade}
                               </span>
                               {grade.grade_type && (
-                                <Badge variant="default" className="text-xs">
+                                <Badge variant="outline" className="text-[var(--font-size-xs)]">
                                   {grade.grade_type}
                                 </Badge>
                               )}
                             </div>
-                            <p className="text-xs text-gray-500 mt-1">
+                            <p className="text-[var(--font-size-xs)] text-[rgb(var(--color-text-tertiary))] mt-1">
                               {formatDate(grade.grade_date, 'long')}
                             </p>
                             {grade.comment && (
-                              <p className="text-xs text-gray-600 mt-1 italic">{grade.comment}</p>
+                              <p className="text-[var(--font-size-xs)] text-[rgb(var(--color-text-secondary))] mt-1 italic">{grade.comment}</p>
                             )}
                           </div>
-                          <div className="text-xs text-gray-500 text-right">
+                          <div className="text-[var(--font-size-xs)] text-[rgb(var(--color-text-tertiary))] text-right">
                             {grade.teacher_profiles?.profiles?.full_name}
                           </div>
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <p className="text-sm text-gray-400 italic">Оценок пока нет</p>
+                    <p className="text-[var(--font-size-sm)] text-[rgb(var(--color-text-tertiary))] italic">Оценок пока нет</p>
                   )}
                 </div>
               ))}
 
               {subjectStats.length === 0 && (
-                <div className="text-center py-8">
-                  <BookOpen className="h-12 w-12 text-gray-300 mx-auto mb-2" />
-                  <p className="text-gray-400">Предметы не найдены</p>
+                <div className="text-center py-12">
+                  <BookOpen className="h-12 w-12 text-[rgb(var(--color-text-tertiary))] mx-auto mb-3 opacity-50" />
+                  <p className="text-[rgb(var(--color-text-tertiary))]">Предметы не найдены</p>
                 </div>
               )}
             </div>
@@ -232,37 +240,35 @@ export default async function DiaryPage() {
 
         {/* Recent Grades Timeline */}
         <Card>
-          <CardHeader>
+          <CardHeader className="border-b border-[rgb(var(--color-border-subtle))]">
             <CardTitle>Последние оценки</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
+          <CardContent className="p-0">
+            <div className="divide-y divide-[rgb(var(--color-border-subtle))]">
               {grades && grades.length > 0 ? (
                 grades.slice(0, 10).map(grade => (
-                  <div key={grade.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-md">
-                    <div className="flex items-center gap-4">
-                      <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600 font-bold text-lg">
-                        {grade.grade_value}
-                      </div>
-                      <div>
-                        <p className="font-semibold">{grade.subjects?.name}</p>
-                        <p className="text-sm text-gray-500">
-                          {formatDate(grade.grade_date, 'long')} • {grade.grade_type || 'Оценка'}
-                        </p>
-                        {grade.comment && (
-                          <p className="text-sm text-gray-600 mt-1 italic">{grade.comment}</p>
-                        )}
-                      </div>
+                  <div key={grade.id} className="flex items-center gap-4 p-4 hover:bg-[rgb(var(--color-surface-hover))] transition-colors duration-200 cursor-pointer">
+                    <div className="flex items-center justify-center w-12 h-12 rounded-[var(--radius-md)] bg-[rgb(var(--color-accent-light))] text-[rgb(var(--color-accent))] font-bold text-[var(--font-size-lg)] flex-shrink-0">
+                      {grade.grade_value}
                     </div>
-                    <div className="text-sm text-gray-500 text-right">
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-[var(--font-size-sm)] text-[rgb(var(--color-text-primary))]">{grade.subjects?.name}</p>
+                      <p className="text-[var(--font-size-xs)] text-[rgb(var(--color-text-tertiary))] mt-0.5">
+                        {formatDate(grade.grade_date, 'long')} • {grade.grade_type || 'Оценка'}
+                      </p>
+                      {grade.comment && (
+                        <p className="text-[var(--font-size-xs)] text-[rgb(var(--color-text-secondary))] mt-1 italic">{grade.comment}</p>
+                      )}
+                    </div>
+                    <div className="text-[var(--font-size-xs)] text-[rgb(var(--color-text-tertiary))] text-right">
                       <p>{grade.teacher_profiles?.profiles?.full_name}</p>
-                      <p className="text-xs">{grade.academic_terms ? getTermName(grade.academic_terms.term) : ''}</p>
+                      <p className="text-[var(--font-size-xs)]">{grade.academic_terms ? getTermName(grade.academic_terms.term) : ''}</p>
                     </div>
                   </div>
                 ))
               ) : (
-                <div className="text-center py-8">
-                  <p className="text-gray-400">Оценок пока нет</p>
+                <div className="text-center py-12">
+                  <p className="text-[rgb(var(--color-text-tertiary))]">Оценок пока нет</p>
                 </div>
               )}
             </div>
