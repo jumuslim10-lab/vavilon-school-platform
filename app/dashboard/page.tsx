@@ -1,4 +1,4 @@
-import { getUser, getUserProfile, getUserSchoolMemberships } from '@/lib/auth'
+import { getUser, getUserProfile, getUserSchoolMemberships } from '@/lib/auth-cached'
 import { redirect } from 'next/navigation'
 import DashboardLayout from '@/components/layout/dashboard-layout'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'

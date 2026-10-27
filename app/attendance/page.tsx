@@ -1,4 +1,4 @@
-import { requireRole } from '@/lib/auth'
+import { requireRole } from '@/lib/auth-cached'
 import { createClient } from '@/lib/supabase/server'
 import DashboardLayout from '@/components/layout/dashboard-layout'
 import AttendanceClient from '@/components/attendance/attendance-client'

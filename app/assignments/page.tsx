@@ -1,4 +1,4 @@
-import { requireAuth } from '@/lib/auth'
+import { requireAuth } from '@/lib/auth-cached'
 import { createClient } from '@/lib/supabase/server'
 import DashboardLayout from '@/components/layout/dashboard-layout'
 import AssignmentsClient from '@/components/assignments/assignments-client'
