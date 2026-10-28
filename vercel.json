@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "installCommand": "npm install",
+  "env": {
+    "NEXT_PUBLIC_SUPABASE_URL": "https://briayzwplirskytzybmr.supabase.co",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJyaWF5endwbGlyc2t5dHp5Ym1yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk5MjU3MjIsImV4cCI6MjA0NTUwMTcyMn0.sMes7TSM3ttzuRs0q4FBuIOe0jdZ3e5xrY08c8t8wZM"
+  },
+  "regions": ["iad1"]
+}
