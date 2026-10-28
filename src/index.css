@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+@theme {
+  --font-sans: Inter, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", Inter, sans-serif;
+}
+body { @apply bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-100 font-sans antialiased; }
